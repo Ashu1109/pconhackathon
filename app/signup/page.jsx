@@ -2,11 +2,40 @@
 import React, { useState } from 'react'
 import { RiGoogleFill, RiLoginBoxLine } from 'react-icons/ri'
 import Link from 'next/link'
+import Loading from '../loading'
+import axios from 'axios'
+import toast from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
 const Page = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    return (<>
+    const [loading, setLoading] = useState(false);
+    const router = useRouter();
+    const handleSubmit = async () => {
+        console.log(name, email, password)
+        try {
+            setLoading(true);
+            const res = await axios.post("api/signup", { name, email, password })
+            const data = await res.data;
+            if (data.success) {
+                toast.success(data.message);
+                router.push('/dashboard');
+            }
+            if (!data.success) {
+                toast.error(data.message)
+                router.reload();
+            }
+            setLoading(false);
+        }
+        catch (error) {
+            toast.error(error.message)
+        }
+        finally {
+            setLoading(false)
+        }
+    }
+    return (loading ? (<Loading />) : <>
         <div className='w-[100vw] flex justify-center items-center h-[92vh] md:h-[90vh] bg-slate-100'>
             <div className='py-0 md:py-10 w-full h-full  md:w-[70%] shadow-xl rounded-none md:rounded-3xl bg-white md:h-[90%] px-0 md:px-10  flex'>
                 <div className=' w-full md:w-[60%] bg-sky-100 rounded-3xl md:rounded-none md:rounded-s-3xl flex justify-center items-center'>
@@ -15,13 +44,13 @@ const Page = () => {
                             SignUp
                         </div>
                         <div>
-                            <input type="text" value={name} onChange={(e) => { setName(e.target.value) }} placeholder={"Enter Your Name"} className='p-2.5 shadow-md rounded my-5 text-xl md:text-lg border-b-[5px] border-blue-300 duration-300 bg-blue-50 transition-all font-semibold focus:border-b-[7px] text-black focus:w-full w-[80%] md:w-[90%] focus:outline-none' />
-                            <input type="email" value={email} onChange={(e) => { setEmail(e.target.value) }} placeholder={"Enter Your Email"} className='p-2.5 shadow-md rounded my-5 text-xl md:text-lg border-b-[5px] border-blue-300 duration-300 bg-blue-50 transition-all font-semibold focus:border-b-[7px] text-black focus:w-full w-[80%] md:w-[90%] focus:outline-none' />
-                            <input type="password" value={password} onChange={(e) => { setPassword(e.target.password) }} placeholder={"Enter Your Password"} className='p-2.5 shadow-md rounded my-5 text-xl md:text-lg border-b-[5px] border-blue-300 duration-300 bg-blue-50 transition-all font-semibold focus:border-b-[7px] text-black focus:w-full w-[80%] md:w-[90%] focus:outline-none' />
+                            <input type="text" name='name' value={name} onChange={(e) => { setName(e.target.value) }} placeholder={"Enter Your Name"} className='p-2.5 shadow-md rounded my-5 text-xl md:text-lg border-b-[5px] border-blue-300 duration-300 bg-blue-50 transition-all font-semibold focus:border-b-[7px] text-black focus:w-full w-[80%] md:w-[90%] focus:outline-none' />
+                            <input type="email" name='email' value={email} onChange={(e) => { setEmail(e.target.value) }} placeholder={"Enter Your Email"} className='p-2.5 shadow-md rounded my-5 text-xl md:text-lg border-b-[5px] border-blue-300 duration-300 bg-blue-50 transition-all font-semibold focus:border-b-[7px] text-black focus:w-full w-[80%] md:w-[90%] focus:outline-none' />
+                            <input type="password" name='password' value={password} onChange={(e) => { setPassword(e.target.value) }} placeholder={"Enter Your Password"} className='p-2.5 shadow-md rounded my-5 text-xl md:text-lg border-b-[5px] border-blue-300 duration-300 bg-blue-50 transition-all font-semibold focus:border-b-[7px] text-black focus:w-full w-[80%] md:w-[90%] focus:outline-none' />
                         </div>
                         <div className='w-[10rem] h-[2.7rem] shadow-xl mt-2 rounded-md hover:bg-blue-500 transition-colors bg-blue-400 flex items-center cursor-pointer justify-center text-slate-100'>
                             <div className=' flex justify-center items-center '>
-                                <button className=' text-lg md:text-base font-bold uppercase px-2 '>
+                                <button onClick={handleSubmit} className=' text-lg md:text-base font-bold uppercase px-2 '>
                                     Continue
                                 </button>
                                 <div>
@@ -75,11 +104,11 @@ const Page = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className='flex gap-1 p-3 flex-col justify-center items-center font-semibold text-lg text-black/60'>
+                        <div className='flex gap-1 p-3 flex-col justify-center items-center font-semibold text-lg text-black/80'>
                             <div>
                                 Already have an accounts?
                             </div>
-                            <Link href='/login' className='hover:underline '>
+                            <Link href='/login' className='hover:underline text-xl '>
                                 Login
                             </Link>
                         </div>

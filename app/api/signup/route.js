@@ -8,7 +8,6 @@ connect();
 export async function POST(request) {
   try {
     const { name, email, password } = await request.json();
-    console.log(name, email, password);
     if (!name || !email || !password)
       return NextResponse.json(
         { message: "Enter All Field", success: false },
@@ -35,7 +34,6 @@ export async function POST(request) {
     const token = jwt.sign(tokenContent, process.env.TOKEN_JWT, {
       expiresIn: "1d",
     });
-    console.log(token);
     const res = NextResponse.json(
       { message: "SignUp Successfully", success: true },
       { status: 200 }
