@@ -55,8 +55,23 @@ const Page = () => {
                             </div>
                         </div>
                         <div className='flex w-full h-[80%]'>
-                            <div className='text-xl  text-center font-medium text-black/50 font-serif'>
-                                We{"'"}re thrilled to have you here. Please enter your credentials to access your account and explore all the amazing features and services we have in store for you. Your security and convenience are our top priorities, so you can log in with confidence.
+                            <div className='text-lg  text-center font-medium text-black/80 font-serif'>
+                                <div>
+                                    Unlock a world of possibilities by joining our community. Sign up today and be a part of something extraordinary.
+                                </div>
+                                <div className=' w-full h-full justify-start pt-7  flex text-left flex-col text-base'>
+                                    <div>
+                                        📝 Create,edit,and organize notes in one place
+                                    </div>
+                                    <div>
+                                        🔐 Secure Login and SignUp features
+                                    </div>
+                                    <div>
+                                        👥 Collaborate with others and share notes
+                                    </div>
+                                    <div>
+                                        🌟 Experience the power of digital notes
+                                    </div>                                </div>
                             </div>
                         </div>
                         <div className='flex gap-1 p-3 flex-col justify-center items-center font-semibold text-lg text-black/60'>
