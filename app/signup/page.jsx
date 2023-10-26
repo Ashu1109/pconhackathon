@@ -71,7 +71,8 @@ const Page = () => {
                                     </div>
                                     <div>
                                         🌟 Experience the power of digital notes
-                                    </div>                                </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div className='flex gap-1 p-3 flex-col justify-center items-center font-semibold text-lg text-black/60'>
