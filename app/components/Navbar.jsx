@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import React, { useContext } from 'react'
-import { Context } from '../context/contextProvider';
+import { Context } from '@/app/context/ContextProvider';
 import toast from 'react-hot-toast';
 
 const Navbar = () => {
