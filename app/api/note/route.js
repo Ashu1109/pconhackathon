@@ -18,7 +18,23 @@ export async function GET(request) {
     return NextResponse.json({ error: error, success: false }, { status: 500 });
   }
 }
-
+export async function PUT(request) {
+  try {
+    const id = request.nextUrl.searchParams.get("id");
+    const { title, description } = await request.json();
+    console.log(title, description);
+    const note = await Note.updateOne(
+      { _id: id },
+      { title, description, createdAt: new Date(0) }
+    );
+    return NextResponse.json(
+      { message: "Updated Successfully", success: true },
+      { status: 200 }
+    );
+  } catch (error) {
+    return NextResponse.json({ error: error, success: true }, { status: 500 });
+  }
+}
 export async function DELETE(request) {
   try {
     const id = request.nextUrl.searchParams.get("id");

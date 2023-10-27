@@ -6,14 +6,13 @@ connect();
 export async function POST(request) {
   try {
     const { title, description } = await request.json();
-    console.log(title, description);
     if (!title || !description)
       return NextResponse.json(
         { message: "Enter All Field", success: false },
         { status: 401 }
       );
 
-    const token = request.cookies.get("token")?.value;
+    const token = request.cookies.get("token")?.value || null;
     if (!token)
       return NextResponse.json(
         { message: "Please Login", success: false },
@@ -21,11 +20,12 @@ export async function POST(request) {
       );
     const user = await jwt.verify(token, process.env.TOKEN_JWT);
     const newNote = new Note({
-      userId: user._id,
+      userId: user.id,
       title,
       description,
+      createdAt: Date.now(),
     });
-    newNote.save();
+    const note = await newNote.save();
     return NextResponse.json(
       { message: "Note Added", success: true },
       { status: 200 }
@@ -44,7 +44,7 @@ export async function GET(request) {
         { status: 400 }
       );
     const user = await jwt.verify(token, process.env.TOKEN_JWT);
-    const allNotes = await Note.find({ userId: user._Id });
+    const allNotes = await Note.find({ userId: user.id });
     return NextResponse.json({ allNotes });
   } catch (error) {
     return NextResponse.json({ error: error, success: false }, { status: 500 });

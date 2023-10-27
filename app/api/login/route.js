@@ -26,12 +26,13 @@ export async function POST(request) {
       );
     }
     const tokenContent = {
+      id: user._id,
       name: user.name,
       email: user.email,
     };
     console.log(tokenContent);
     const token = jwt.sign(tokenContent, process.env.TOKEN_JWT, {
-      expiresIn: "1d",
+      expiresIn: "10d",
     });
     const res = NextResponse.json(
       { message: "Login Successfully", success: true },
