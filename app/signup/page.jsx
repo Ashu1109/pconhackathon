@@ -7,7 +7,7 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 import Navbar from '../components/Navbar'
-import { Context } from '../context/contextProvider'
+import { Context } from '@/app/context/ContextProvider'
 const Page = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");

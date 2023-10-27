@@ -7,7 +7,7 @@ import toast from 'react-hot-toast'
 import Loading from '../loading'
 import { useRouter } from 'next/navigation'
 import Navbar from '../components/Navbar'
-import { Context } from '../context/contextProvider'
+import { Context } from '@/app/context/ContextProvider'
 const Page = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
