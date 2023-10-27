@@ -26,13 +26,14 @@ export async function POST(request) {
       email,
       password: hashedPassword,
     });
-    await newUser.save();
+    const savedUser = await newUser.save();
     const tokenContent = {
+      id: savedUser._id,
       name,
       email,
     };
     const token = jwt.sign(tokenContent, process.env.TOKEN_JWT, {
-      expiresIn: "1d",
+      expiresIn: "10d",
     });
     const res = NextResponse.json(
       { message: "SignUp Successfully", success: true },

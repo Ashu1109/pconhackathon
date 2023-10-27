@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-
+import jwt from "jsonwebtoken";
 const { connect } = require("@/app/dbconfig/dbconfig");
 
 connect();

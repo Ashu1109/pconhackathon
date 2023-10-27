@@ -1,55 +1,36 @@
 'use client'
-import Loading from '@/app/loading'
-import axios from 'axios'
-import { useRouter } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
-import toast from 'react-hot-toast'
+
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react'
+import toast from 'react-hot-toast';
 import { BiSave } from 'react-icons/bi'
-const Page = ({ params }) => {
-    const { id } = params;
+const Page = () => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [loading, setLoading] = useState(false)
     const router = useRouter()
-    const handleLoad = async () => {
-        try {
-            setLoading(true);
-            const res = await axios.get(`/api/note?id=${id}`);
-            const data = await res.data;
-            const { note } = data;
-            setTitle(note.title);
-            setDescription(note.description);
-            setLoading(false);
-        } catch (error) {
-
-        } finally {
-            setLoading(false);
-        }
-    }
     const handleSave = async () => {
         try {
             setLoading(true);
-            const res = await axios.put(`/api/note?id=${id}`, { title, description });
+            const res = await axios.post("/api/notes", { title, description })
             const data = await res.data;
-            if (data.success) {
-                toast.success(data.message);
-                router.push("/dashboard")
-            }
             if (!data.success) {
-                toast.error(success.message)
+                toast.error(data.message)
             }
+            if (data.success) {
+                toast.success(data.message)
+            }
+            router.push('/dashboard');
             setLoading(false);
         } catch (error) {
-            if (error) {
-                toast.error(error.message)
-            }
+            setLoading(false);
         }
         finally {
             setLoading(false);
         }
     }
-    useEffect(() => { handleLoad() }, [])
-    return (loading ? (<Loading />) :
+    return (
         <>
             <div className='w-[100vw] h-[92vh] md:h-[90vh] bg-white'>
                 <div className='p-5  shadow-xl flex gap-3 bg-slate-100'>
@@ -70,8 +51,8 @@ const Page = ({ params }) => {
                     </div>
                 </div>
             </div>
-            <div className=' absolute right-10 bottom-10  hover:scale-110 transition w-16 h-16 shadow-xl bg-blue-400 flex rounded-full justify-center items-center'>
-                <button onClick={handleSave} className=' font-extrabold'>
+            <div onClick={handleSave} className=' absolute right-10 bottom-10  hover:scale-110 transition w-16 h-16 shadow-xl bg-blue-400 flex rounded-full justify-center items-center'>
+                <button className=' font-extrabold'>
                     <BiSave size={24} />
                 </button>
             </div>

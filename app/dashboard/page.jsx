@@ -1,45 +1,67 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Note from '../components/Note'
 import Button from '../components/Button'
-import { AiOutlineDelete } from 'react-icons/ai'
-import { RiBallPenLine, RiShareBoxLine } from 'react-icons/ri'
-const notes = [
-    {
-        title: "Physics.ksngf, lvks.rnf lkrvs.fmnv rlkfsm, ",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus alias sapiente obcaecati consequuntur ex eveniet ipsa pariatur veniam a, maxime minima qui nostrum magnam laborum quasi inventore enim est nemo. Vel suscipit obcaecati voluptates cumque molestiae tenetur, quae cum vitae explicabo nemo.Deleniti possimus repudiandae dignissimos et nam nihil consequuntur, dolore amet repellendus doloribus velit.Magnam quo non explicabo eaque. Illum impedit et necessitatibus.Totam asperiores, at atque, harum, ipsum saepe error molestias tempore fugit praesentium nisi hic ad optio mollitia nulla quas veritatis! Ipsam praesentium a at nostrum assumenda? Delectus magni quod aut quam.Omnis, cum.Unde dolorum sit enim ut vel ipsa, recusandae odit, a aperiam necessitatibus quidem nesciunt consequuntur, numquam quasi dolores corrupti quisquam excepturi! Temporibus, perferendis. Sit sunt molestias veniam necessitatibus atque beatae labore, repudiandae fugiat praesentium rerum debitis fugit quis animi optio, commodi dicta deserunt repellendus aperiam et inventore neque numquam obcaecati culpa doloribus.Deserunt"
-    },
-    {
-        title: "Physics",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus alias sapiente obcaecati consequuntur ex eveniet ipsa pariatur veniam a, maxime minima qui nostrum magnam laborum quasi inventore enim est nemo. Vel suscipit obcaecati voluptates cumque molestiae tenetur, quae cum vitae explicabo nemo.Deleniti possimus repudiandae dignissimos et nam nihil consequuntur, dolore amet repellendus doloribus velit.Magnam quo non explicabo eaque. Illum impedit et necessitatibus.Totam asperiores, at atque, harum, ipsum saepe error molestias tempore fugit praesentium nisi hic ad optio mollitia nulla quas veritatis! Ipsam praesentium a at nostrum assumenda? Delectus magni quod aut quam.Omnis, cum.Unde dolorum sit enim ut vel ipsa, recusandae odit, a aperiam necessitatibus quidem nesciunt consequuntur, numquam quasi dolores corrupti quisquam excepturi! Temporibus, perferendis. Sit sunt molestias veniam necessitatibus atque beatae labore, repudiandae fugiat praesentium rerum debitis fugit quis animi optio, commodi dicta deserunt repellendus aperiam et inventore neque numquam obcaecati culpa doloribus.Deserunt"
-    },
-    {
-        title: "Physics",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus alias sapiente obcaecati consequuntur ex eveniet ipsa pariatur veniam a, maxime minima qui nostrum magnam laborum quasi inventore enim est nemo. Vel suscipit obcaecati voluptates cumque molestiae tenetur, quae cum vitae explicabo nemo.Deleniti possimus repudiandae dignissimos et nam nihil consequuntur, dolore amet repellendus doloribus velit.Magnam quo non explicabo eaque. Illum impedit et necessitatibus.Totam asperiores, at atque, harum, ipsum saepe error molestias tempore fugit praesentium nisi hic ad optio mollitia nulla quas veritatis! Ipsam praesentium a at nostrum assumenda? Delectus magni quod aut quam.Omnis, cum.Unde dolorum sit enim ut vel ipsa, recusandae odit, a aperiam necessitatibus quidem nesciunt consequuntur, numquam quasi dolores corrupti quisquam excepturi! Temporibus, perferendis. Sit sunt molestias veniam necessitatibus atque beatae labore, repudiandae fugiat praesentium rerum debitis fugit quis animi optio, commodi dicta deserunt repellendus aperiam et inventore neque numquam obcaecati culpa doloribus.Deserunt"
-    },
-    {
-        title: "Physics",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus alias sapiente obcaecati consequuntur ex eveniet ipsa pariatur veniam a, maxime minima qui nostrum magnam laborum quasi inventore enim est nemo. Vel suscipit obcaecati voluptates cumque molestiae tenetur, quae cum vitae explicabo nemo.Deleniti possimus repudiandae dignissimos et nam nihil consequuntur, dolore amet repellendus doloribus velit.Magnam quo non explicabo eaque. Illum impedit et necessitatibus.Totam asperiores, at atque, harum, ipsum saepe error molestias tempore fugit praesentium nisi hic ad optio mollitia nulla quas veritatis! Ipsam praesentium a at nostrum assumenda? Delectus magni quod aut quam.Omnis, cum.Unde dolorum sit enim ut vel ipsa, recusandae odit, a aperiam necessitatibus quidem nesciunt consequuntur, numquam quasi dolores corrupti quisquam excepturi! Temporibus, perferendis. Sit sunt molestias veniam necessitatibus atque beatae labore, repudiandae fugiat praesentium rerum debitis fugit quis animi optio, commodi dicta deserunt repellendus aperiam et inventore neque numquam obcaecati culpa doloribus.Deserunt"
-    },
-    {
-        title: "Physics",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus alias sapiente obcaecati consequuntur ex eveniet ipsa pariatur veniam a, maxime minima qui nostrum magnam laborum quasi inventore enim est nemo. Vel suscipit obcaecati voluptates cumque molestiae tenetur, quae cum vitae explicabo nemo.Deleniti possimus repudiandae dignissimos et nam nihil consequuntur, dolore amet repellendus doloribus velit.Magnam quo non explicabo eaque. Illum impedit et necessitatibus.Totam asperiores, at atque, harum, ipsum saepe error molestias tempore fugit praesentium nisi hic ad optio mollitia nulla quas veritatis! Ipsam praesentium a at nostrum assumenda? Delectus magni quod aut quam.Omnis, cum.Unde dolorum sit enim ut vel ipsa, recusandae odit, a aperiam necessitatibus quidem nesciunt consequuntur, numquam quasi dolores corrupti quisquam excepturi! Temporibus, perferendis. Sit sunt molestias veniam necessitatibus atque beatae labore, repudiandae fugiat praesentium rerum debitis fugit quis animi optio, commodi dicta deserunt repellendus aperiam et inventore neque numquam obcaecati culpa doloribus.Deserunt"
-    },
-]
-const page = () => {
+import axios from 'axios'
+import toast from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
+import NewNote from '../components/NewNote'
+import Loading from '../loading'
+import Link from 'next/link'
+const Page = () => {
+    const [loading, setLoading] = useState(false);
+    const [notes, setNotes] = useState();
+    const router = useRouter();
     const handleClick = () => {
         console.log("click")
     }
-    return (
-        <div className='w-full  bg-slate-100 overflow-scroll h-full md:h-[90vh] '>
+
+    const handleDelete = async (id) => {
+        try {
+            setLoading(true);
+            const res = await axios.delete(`/api/note?id=${id}`);
+            const data = await res.data;
+            handleLoad();
+            if (data.success) {
+                toast.success(data.message);
+            }
+            if (!data.success) {
+                toast.error(data.message);
+            }
+            setLoading(false);
+        } catch (error) {
+            toast.error(error.message);
+        }
+        finally {
+            setLoading(false);
+        }
+    }
+    const handleLoad = async () => {
+        try {
+            setLoading(true)
+            const res = await axios.get("api/notes");
+            const data = res.data;
+            setNotes(data.allNotes.sort(data.allNotes.createdAt));
+            setLoading(false)
+        } catch (error) {
+            console.log(error)
+        }
+        finally {
+            setLoading(false)
+        }
+    }
+    useEffect(() => {
+        handleLoad()
+    }, [])
+    return (loading ? (<Loading />) :
+        <div className='w-full  bg-slate-100 overflow-scroll min-h-[92vh] md:min-h-[90vh] '>
             <div className='flex gap-4 w-full h-full flex-wrap justify-center p-5'>
-                {
-                    notes.map((item, index) => (<Note key={index} title={item.title} description={item.description} />))
-                }
+                {notes && notes.length === 0 ? (<NewNote />) : notes && notes.map((item) => (<Note onClick={() => handleDelete(item._id)} key={item._id} id={item._id} title={item.title} description={item.description} />))}
             </div>
-            <Button onClick={handleClick} />
+            <Link href="/newnote">
+                <Button /></Link>
         </div >
     )
 }
 
-export default page
+export default Page
