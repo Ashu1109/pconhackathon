@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 import NewNote from '../components/NewNote'
 import Loading from '../loading'
 import Link from 'next/link'
+import Navbar from '../components/Navbar'
 const Page = () => {
     const [loading, setLoading] = useState(false);
     const [notes, setNotes] = useState();
@@ -54,13 +55,15 @@ const Page = () => {
         handleLoad()
     }, [])
     return (loading ? (<Loading />) :
+        <><Navbar />
         <div className='w-full  bg-slate-100 overflow-scroll min-h-[92vh] md:min-h-[90vh] '>
             <div className='flex gap-4 w-full h-full flex-wrap justify-center p-5'>
                 {notes && notes.length === 0 ? (<NewNote />) : notes && notes.map((item) => (<Note onClick={() => handleDelete(item._id)} key={item._id} id={item._id} title={item.title} description={item.description} />))}
             </div>
             <Link href="/newnote">
                 <Button /></Link>
-        </div >
+            </div >
+        </>
     )
 }
 

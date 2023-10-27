@@ -1,25 +1,17 @@
 'use client'
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
+import React, { useContext } from 'react'
+import { Context } from '../context/contextProvider';
 import toast from 'react-hot-toast';
 
 const Navbar = () => {
-    const [token, setToken] = useState(null)
+    const [token, setToken] = useContext(Context);
     const router = useRouter();
-    const handleLoad = async () => {
-        try {
-            const res = await axios.get('api/me');
-            const data = await res.data;
-            setToken(data.token)
-            console.log(token)
-        } catch (error) {
-            console.log(error.message)
-        }
-    }
     const handleLogout = async () => {
         try {
-            const res = await axios.get("api/logout");
+            setToken(null);
+            const res = await axios.get('api/logout');
             const data = await res.data;
             if (data.success) {
                 toast.success(data.message)
@@ -32,9 +24,6 @@ const Navbar = () => {
             toast.error(error.message)
         }
     }
-    useEffect(() => {
-        handleLoad()
-    }, []);
     return (
         <div className='w-full flex justify-between px-8 md:px-10 shadow-3xl  items-center h-[8vh] md:h-[10vh] bg-blue-200'>
             <div className=' font-extrabold text-slate-600 text-2xl md:text-3xl'>

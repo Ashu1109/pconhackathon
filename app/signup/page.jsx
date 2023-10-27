@@ -1,23 +1,28 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { RiGoogleFill, RiLoginBoxLine } from 'react-icons/ri'
 import Link from 'next/link'
 import Loading from '../loading'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
+import Navbar from '../components/Navbar'
+import { Context } from '../context/contextProvider'
 const Page = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const router = useRouter();
+    const [token, setToken] = useContext(Context);
     const handleSubmit = async () => {
-        console.log(name, email, password)
         try {
             setLoading(true);
             const res = await axios.post("api/signup", { name, email, password })
             const data = await res.data;
+            const resToken = await axios.get("api/me");
+            const dataToken = await resToken.data
+            setToken(dataToken)
             if (data.success) {
                 toast.success(data.message);
                 router.push('/dashboard');
@@ -35,7 +40,7 @@ const Page = () => {
             setLoading(false)
         }
     }
-    return (loading ? (<Loading />) : <>
+    return (loading ? (<Loading />) : <><Navbar />
         <div className='w-[100vw] flex justify-center items-center h-[92vh] md:h-[90vh] bg-slate-100'>
             <div className='py-0 md:py-10 w-full h-full  md:w-[70%] shadow-xl rounded-none md:rounded-3xl bg-white md:h-[90%] px-0 md:px-10  flex'>
                 <div className=' w-full md:w-[60%] bg-sky-100 rounded-3xl md:rounded-none md:rounded-s-3xl flex justify-center items-center'>
