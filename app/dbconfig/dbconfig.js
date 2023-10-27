@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
 export async function connect(request) {
   try {
-    const { connection } = await mongoose.connect(process.env.MONGO_DB);
-    console.log(connection.host);
+    const { connection } = await mongoose.connect(process.env.MONGO_URL, {
+      dbName: "pcon",
+    });
   } catch (error) {
     console.log(error);
   }

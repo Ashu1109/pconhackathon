@@ -30,7 +30,6 @@ export async function POST(request) {
       name: user.name,
       email: user.email,
     };
-    console.log(tokenContent);
     const token = jwt.sign(tokenContent, process.env.TOKEN_JWT, {
       expiresIn: "10d",
     });

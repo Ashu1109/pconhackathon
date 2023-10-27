@@ -22,7 +22,6 @@ export async function PUT(request) {
   try {
     const id = request.nextUrl.searchParams.get("id");
     const { title, description } = await request.json();
-    console.log(title, description);
     const note = await Note.updateOne(
       { _id: id },
       { title, description, createdAt: new Date(0) }
