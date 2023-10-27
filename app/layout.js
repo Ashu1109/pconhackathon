@@ -2,7 +2,7 @@ import ToasterProvider from "./ToasterProvider/Toaster";
 import Navbar from "./components/Navbar";
 import "./globals.css";
 import { Inter } from "next/font/google";
-import ContextProvider from "./context/contextProvider";
+import ContextProvider from "@/app/context/ContextProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
