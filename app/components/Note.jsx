@@ -1,17 +1,19 @@
-import React, { useState } from 'react'
+import React from 'react'
 import '../globals.css'
 import { AiOutlineDelete } from 'react-icons/ai'
 import { RiBallPenLine, RiShareBoxLine } from 'react-icons/ri'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 const Note = ({ onClick, id, title, description }) => {
     const router = useRouter();
     const handleClick = async () => {
         router.push(`/notes/${id}`);
     }
+    const share = `Title: ${title}                     Description: ${description}`
     return (
         <>
             <div className='md:w-[40vw] w-[90vw] shadow-xl md:hover:scale-105 transition duration-100 p-5 h-60 rounded-xl flex bg-blue-100'>
-                <div>
+                <div className=' min-w-[100px]'>
                     <div>
                         <div className=' text-base font-extrabold'>
                             Title
@@ -31,14 +33,15 @@ const Note = ({ onClick, id, title, description }) => {
                                 <AiOutlineDelete size={24} />
                             </button>
                         </div>
+                        <Link href={`whatsapp://send?text=${share}`}>
                         <div className='  my-2  hover:scale-110 transition  w-10 h-10 shadow-xl bg-blue-400 flex rounded-full justify-center items-center'>
                             <button className=' font-extrabold'>
                                 <RiShareBoxLine size={24} />
                             </button>
-                        </div>
+                            </div></Link>
                     </div>
                 </div>
-                <div className=''>
+                <div className='max-w-[250px] overflow-scroll'>
                     <div className='px-4 py-2 text-lg font-semibold text-slate-800 /75'>
                         <div className='py-1'>
                             Descrtiption
