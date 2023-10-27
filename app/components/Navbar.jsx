@@ -10,9 +10,9 @@ const Navbar = () => {
     const router = useRouter();
     const handleLogout = async () => {
         try {
-            setToken(null);
-            const res = await axios.get('api/logout');
+            const res = await axios.get('/api/logout');
             const data = await res.data;
+            setToken(null)
             if (data.success) {
                 toast.success(data.message)
             }
