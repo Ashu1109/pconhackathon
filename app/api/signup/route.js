@@ -39,7 +39,7 @@ export async function POST(request) {
       { message: "SignUp Successfully", success: true },
       { status: 200 }
     );
-    res.cookies.set("token", token, { httpOnly: true });
+    res.cookies.set("token", token);
     return res;
   } catch (error) {
     return NextResponse.json({ error: error, success: false }, { status: 500 });
