@@ -12,21 +12,14 @@ const Page = ({ params }) => {
     const [description, setDescription] = useState("");
     const [loading, setLoading] = useState(false)
     const router = useRouter()
-    const handleLoad = async () => {
-        try {
-            setLoading(true);
-            const res = await axios.get(`/api/note?id=${id}`);
-            const data = await res.data;
-            const { note } = data;
-            setTitle(note.title);
-            setDescription(note.description);
-            setLoading(false);
-        } catch (error) {
-
-        } finally {
-            setLoading(false);
-        }
-    }
+    useEffect(() => {
+        axios.get(`/api/note?id=${id}`)
+            .then(res => res.data)
+            .then(({ note }) => {
+                setTitle(note.title);
+                setDescription(note.description);
+            })
+    }, [id])
     const handleSave = async () => {
         try {
             setLoading(true);
@@ -49,7 +42,6 @@ const Page = ({ params }) => {
             setLoading(false);
         }
     }
-    useEffect(() => { handleLoad() }, [])
     return (loading ? (<Loading />) :
         <>
             <Navbar />
