@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 import { BiSave } from 'react-icons/bi'
+import Navbar from '../components/Navbar';
 const Page = () => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -31,7 +32,7 @@ const Page = () => {
         }
     }
     return (
-        <>
+        <><Navbar />
             <div className='w-[100vw] h-[92vh] md:h-[90vh] bg-white'>
                 <div className='p-5  shadow-xl flex gap-3 bg-slate-100'>
                     <div className='text-xl font-extrabold'>

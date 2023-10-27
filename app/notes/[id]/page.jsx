@@ -1,4 +1,5 @@
 'use client'
+import Navbar from '@/app/components/Navbar'
 import Loading from '@/app/loading'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
@@ -51,6 +52,7 @@ const Page = ({ params }) => {
     useEffect(() => { handleLoad() }, [])
     return (loading ? (<Loading />) :
         <>
+            <Navbar />
             <div className='w-[100vw] h-[92vh] md:h-[90vh] bg-white'>
                 <div className='p-5  shadow-xl flex gap-3 bg-slate-100'>
                     <div className='text-xl font-extrabold'>
