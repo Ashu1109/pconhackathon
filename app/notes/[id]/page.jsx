@@ -35,7 +35,7 @@ const Page = ({ params }) => {
             setLoading(false);
         } catch (error) {
             if (error) {
-                toast.error(error.message)
+                toast.error(error.response.data.message)
             }
         }
         finally {
