@@ -9,7 +9,7 @@ export async function POST(request) {
     const { email, password } = await request.json();
     if (!email || !password)
       return NextResponse.json(
-        { message: "Enter All Field", success: false },
+        { message: "Enter All Field", success: true },
         { status: 401 }
       );
     const user = await User.findOne({ email }).select("+password");

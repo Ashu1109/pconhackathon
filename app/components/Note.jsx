@@ -4,7 +4,7 @@ import { AiOutlineDelete } from 'react-icons/ai'
 import { RiBallPenLine, RiShareBoxLine } from 'react-icons/ri'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-const Note = ({ onClick, id, title, description }) => {
+const Note = ({ onClick, id, time, title, description }) => {
     const router = useRouter();
     const handleClick = async () => {
         router.push(`/notes/${id}`);
@@ -12,7 +12,7 @@ const Note = ({ onClick, id, title, description }) => {
     const share = `Title: ${title}                     Description: ${description}`
     return (
         <>
-            <div className='md:w-[40vw] w-[90vw] shadow-xl md:hover:scale-105 transition duration-100 p-5 h-60 rounded-xl flex bg-blue-100'>
+            <div className='md:w-[40vw] w-[90vw]  justify-around shadow-xl md:hover:scale-105 transition duration-100 p-5 h-60 rounded-xl flex bg-blue-100'>
                 <div className=' min-w-[100px]'>
                     <div>
                         <div className=' text-base font-extrabold'>
@@ -41,7 +41,7 @@ const Note = ({ onClick, id, title, description }) => {
                             </div></Link>
                     </div>
                 </div>
-                <div className='max-w-[250px] overflow-scroll'>
+                <div className='max-w-[250px] min-w-[150px] overflow-scroll'>
                     <div className='px-4 py-2 text-lg font-semibold text-slate-800 /75'>
                         <div className='py-1'>
                             Descrtiption
@@ -51,6 +51,14 @@ const Note = ({ onClick, id, title, description }) => {
                                 {description.substring(0, 150)}
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div className='w-full text-xs md:text-base md:max-w-[150px] h-full flex flex-col'>
+                    <div>
+                        Date:{time.split("T")[0]}
+                    </div>
+                    <div>
+                        Time:{time.split("T")[1].split(".")[0]}
                     </div>
                 </div>
             </div>

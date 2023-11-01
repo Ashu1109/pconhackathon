@@ -2,6 +2,7 @@ import ToasterProvider from "./ToasterProvider/Toaster";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import ContextProvider from "@/app/context/ContextProvider";
+import NextTopLoader from "nextjs-toploader";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,6 +17,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <ContextProvider>
           <ToasterProvider />
+          <NextTopLoader color="blue" height={7} />
           {children}
         </ContextProvider>
       </body>
